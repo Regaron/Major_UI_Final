@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import application from "../assets/images/application.jpg";
 import Fab from '@material-ui/core/Fab';
@@ -89,82 +89,88 @@ const CalculateButton = styled.button`
   
 `;
 
-const Application = ({dispatch, appImageAdd, disabled, showBuildingCount, showSolarPotential}) => {
-  const [hover, setHover] = useState("false");
-  const handleBuildingCount = () => {
-    dispatch({type: 'buildingCount'})
-  };
-  const handleSolarPotential = () => {
-    dispatch({type: 'solarPotential'})
-  };
-  const handleSolarClose = () => {
-    dispatch({type: 'closeSolar'})
-  };
-  const handleBuildingClose = () => {
-    dispatch({type: 'closeBuilding'})
-  };
-  return (
-    <div>
-      <Wrapper1>
-        <ApplicationImgText>
-          <Text color={"#F36347"} size={40 + "px"}>
-            Application
-          </Text>
-          <Text color={"#ffff"} size={40 + "px"}>
-            of project
-          </Text>
-        </ApplicationImgText>
-      </Wrapper1>
-      <Wrapper2>
-        {!showBuildingCount?<Cards
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-        >
-          <CardText color={!hover ? "black" : "darkorange"}>
-            {" "}
-            Building Count
-          </CardText>
-          <h2 style={{ marginTop: "80px", padding: " 10px", color: "#696464" }}>
-            {" "}
-            We can obtain the total number of buildings present in the uploaded
-            images. It automatizes in determining how dense is the human
-            settlement. It reduces the overhead of counting the houses in the
-            certain area manually for data collection. With this system it can
-            be done automatically.{" "}
-          </h2>
+const Application = ({dispatch, act_building, pre_building, act_area, pre_area, appImageAdd, downloadButton, showBuildingCount, showSolarPotential}) => {
+    const [hover, setHover] = useState("false");
+    const handleBuildingCount = () => {
+        dispatch({type: 'buildingCount'})
+    };
+    const handleSolarPotential = () => {
+        dispatch({type: 'solarPotential'})
+    };
+    const handleSolarClose = () => {
+        dispatch({type: 'closeSolar'})
+    };
+    const handleBuildingClose = () => {
+        dispatch({type: 'closeBuilding'})
+    };
+    return (
+        <div>
+            <Wrapper1>
+                <ApplicationImgText>
+                    <Text color={"#F36347"} size={40 + "px"}>
+                        Application
+                    </Text>
+                    <Text color={"#ffff"} size={40 + "px"}>
+                        of project
+                    </Text>
+                </ApplicationImgText>
+            </Wrapper1>
+            <Wrapper2>
+                {!showBuildingCount ? <Cards
+                    onMouseEnter={() => setHover(true)}
+                    onMouseLeave={() => setHover(false)}
+                >
+                    <CardText color={!hover ? "black" : "darkorange"}>
+                        {" "}
+                        Building Count
+                    </CardText>
+                    <h2 style={{marginTop: "80px", padding: " 10px", color: "#696464"}}>
+                        {" "}
+                        We can obtain the total number of buildings present in the uploaded
+                        images. It automatizes in determining how dense is the human
+                        settlement. It reduces the overhead of counting the houses in the
+                        certain area manually for data collection. With this system it can
+                        be done automatically.{" "}
+                    </h2>
 
-          <CalculateButton variant={"contained"} color={"primary"} disabled={disabled} onClick={handleBuildingCount}>Calculate</CalculateButton>
-        </Cards>:<Cards>
-          <img src={appImageAdd} style={{height: '75vh', width: '100%'}} alt={""}/>
-          <Fab color={"primary"} onClick={handleBuildingClose} style={{position:"absolute", borderRadius: 0}}>
-            <Close fontSize={"large"}/>
-          </Fab>
-        </Cards>}
-        {!showSolarPotential?<Cards
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-        >
-          <CardText color={!hover ? "black" : "green"}>
-            {" "}
-            Solar Potential
-          </CardText>
-          <h2 style={{ marginTop: "80px", padding: " 10px", color: "#696464" }}>
-            {" "}
-            We can evaluate how much solar energy can be generate from the area
-            of the rooftop. Based on the region and solar data assumptions we
-            can approximate the possible solar energy generation.
-          </h2><br/>
-          <CalculateButton disabled={disabled} onClick={handleSolarPotential}>Calculate</CalculateButton>
-        </Cards>:<Cards>
-          <img src={appImageAdd} style={{height: '75vh', width: '100%'}} alt={""}/>
-          <Fab color={"primary"} onClick={handleSolarClose} style={{position:"absolute", borderRadius: 0}}>
-            <Close fontSize={"large"}/>
-          </Fab>
-
-        </Cards>}
-      </Wrapper2>
-    </div>
-  );
+                    <CalculateButton variant={"contained"} color={"primary"} disabled={!downloadButton}
+                                     onClick={handleBuildingCount}>Calculate</CalculateButton>
+                </Cards> : <Cards>
+                    <img src={appImageAdd} style={{height: '75vh', width: '100%'}} alt={""}/>
+                    <Fab color={"primary"} onClick={handleBuildingClose}
+                         style={{position: "absolute", borderRadius: 0}}>
+                        <Close fontSize={"large"}/>
+                    </Fab>
+                  <h1>Actual Building: {act_building}</h1>
+                  <h1>Predicted Building: {pre_building}</h1>
+                </Cards>}
+                {!showSolarPotential ? <Cards
+                    onMouseEnter={() => setHover(true)}
+                    onMouseLeave={() => setHover(false)}
+                >
+                    <CardText color={!hover ? "black" : "green"}>
+                        {" "}
+                        Solar Potential
+                    </CardText>
+                    <h2 style={{marginTop: "80px", padding: " 10px", color: "#696464"}}>
+                        {" "}
+                        We can evaluate how much solar energy can be generate from the area
+                        of the rooftop. Based on the region and solar data assumptions we
+                        can approximate the possible solar energy generation.
+                    </h2><br/>
+                    <CalculateButton disabled={!downloadButton}
+                                     onClick={handleSolarPotential}>Calculate</CalculateButton>
+                </Cards> : <Cards>
+                    <img src={appImageAdd} style={{height: '75vh', width: '100%'}} alt={""}/>
+                    <Fab color={"primary"} onClick={handleSolarClose} style={{position: "absolute", borderRadius: 0}}>
+                        <Close fontSize={"large"}/>
+                    </Fab>
+                    <h1>Actual Area: {act_area}</h1>
+                  <h1>Predicted Area: {pre_area}</h1>
+                </Cards>}
+            </Wrapper2>
+        </div>
+    );
 };
 
 export default Application;

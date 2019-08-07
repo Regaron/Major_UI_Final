@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Section from "./components/Section";
 import ImageLoader from "./components/ImageLoader";
 import About from "./components/About";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Section reference={"Demo"} color={"#fafafa"}>
               <ImageLoader />
           </Section>
+          <Footer/>
       </div>
   );
 };
